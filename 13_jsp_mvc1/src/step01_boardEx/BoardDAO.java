@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 // D(Data) A(Access) O(Object) : 데이터 접근 객체
-public class BoardDAO {
+public class BoardDAO<pubilc> {
 
 	private BoardDAO(){}
 	private static BoardDAO instance = new BoardDAO();
@@ -109,6 +111,73 @@ public class BoardDAO {
 		return boardList;
 	
 	}
+	
+public BoardDTO getBoardDetail(long boardId){
+		
+		BoardDTO boardDTO = null;
+		
+		try {
+			
+			getConnection();
+			
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				boardDTO = new BoardDTO();
+				boardDTO.setBoardId(boardId);
+				boardDTO.setWriter(rs.getString("WRITER"));
+				boardDTO.setEmail(rs.getString("EMAIL"));
+				boardDTO.setSubject(rs.getString("SUBJECT"));
+				boardDTO.setContent(rs.getString("CONTENT"));
+				boardDTO.setReadCnt(rs.getLong("READ_CNT"));
+				boardDTO.setEnrollDt(rs.getDate("ENROLL_DT"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		
+		// 단위테스트
+		//System.out.println(boardDTO);
+		
+		return boardDTO;
+	
+	}
+
+		//유저 인증 DAO
+		public boolean checkAuthorizedUser(BoardDTO boardDTO) {
+			
+			boolean isAuthorizedUser = false;
+			
+			try {
+				
+				getConnection();
+				
+				pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ? AND PASSWORD = ?");
+				pstmt.setLong(1, boardDTO.getBoardId()); 
+				pstmt.setString(2, boardDTO.getPassword()); 
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					isAuthorizedUser = true;
+					
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				getClose();
+			}
+			 
+			
+			return isAuthorizedUser;
+			
+		}
+	
 	
 	
 	
