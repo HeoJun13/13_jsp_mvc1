@@ -9,11 +9,11 @@
 <title>bDetail</title>
 </head>
 <body>
-
+		
 		<% 
 	
 		long boardId = Long.parseLong(request.getParameter("boardId"));
-		BoardDTO boardDTO = BoardDAO.getInstance().getBoardDetail(boardId);
+		BoardDTO boardDTO = BoardDAO.getInstance().getBoardList(boardId);
 	
 	%>
 		
