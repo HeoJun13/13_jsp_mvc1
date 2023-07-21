@@ -39,7 +39,7 @@
 			
 			<tr>
 				<td colspan="5">
-					<input type="button" value="글쓰기" onclick="location.href="bWrite.jsp">
+					<input type="button" value="글쓰기" onclick="location.href='bWrite.jsp'">
 				</td>
 			</tr>
 		</table>

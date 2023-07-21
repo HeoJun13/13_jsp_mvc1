@@ -13,7 +13,7 @@
 		<% 
 	
 		long boardId = Long.parseLong(request.getParameter("boardId"));
-		BoardDTO boardDTO = BoardDAO.getInstance().getBoardList(boardId);
+		BoardDTO boardDTO = BoardDAO.getInstance().getBoardDetail(boardId);
 	
 	%>
 		

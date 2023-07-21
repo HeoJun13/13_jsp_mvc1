@@ -40,7 +40,7 @@
 			</table>
 			<p>
 				<input type="submit" value="작성" />
-				<input type="button" value="목록보기">
+				<input type="button" value="목록보기" onclick="location.href='bList.jsp'">
 			</p>
 	</div>
 	</form>
